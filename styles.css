@@ -264,8 +264,8 @@ body {
 /* ========== LANGUAGE TOGGLE ========== */
 .language-toggle {
     position: fixed;
-    top: 1rem;
-    right: 1rem;
+    top: 0.5rem;
+    right: 1.5rem;
     display: flex;
     gap: 0.5rem;
     z-index: 100;
@@ -583,8 +583,8 @@ main {
     }
 
     .language-toggle {
-        top: 0.75rem;
-        right: 0.75rem;
+        top: 0.5rem;
+        right: 0.5rem;
     }
 
     .lang-btn {
