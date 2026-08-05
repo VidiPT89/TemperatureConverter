@@ -264,7 +264,7 @@ body {
 /* ========== LANGUAGE TOGGLE ========== */
 .language-toggle {
     position: absolute;
-    top: 1rem;
+    top: 2.5rem;
     right: 1rem;
     display: flex;
     gap: 0.5rem;
@@ -583,7 +583,7 @@ main {
     }
 
     .language-toggle {
-        top: 0.75rem;
+        top: 1.5rem;
         right: 0.75rem;
     }
 
