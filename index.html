@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temperature Converter | Conversor de Temperatura</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Splash Screen -->
+    <div id="splashScreen" class="splash-screen">
+        <div class="splash-content">
+            <div class="splash-icon">🌡️</div>
+            <h1 class="splash-title">Temperature Converter</h1>
+            <p class="splash-subtitle" id="splashSubtitle">Converta entre Celsius, Fahrenheit e Kelvin</p>
+            <div class="splash-loader"></div>
+            <div class="splash-footer">
+                <p id="splashCreator">Developed by David Arsénio Martins</p>
+                <div class="splash-links">
+                    <a href="https://ividi.dev/" target="_blank" rel="noopener">🌐 ividi.dev</a>
+                    <span class="separator">·</span>
+                    <a href="https://github.com/VidiPT89/" target="_blank" rel="noopener">💻 GitHub</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main App -->
+    <div id="appContainer" class="app-container hidden">
+        <div class="container">
+            <!-- Language Toggle -->
+            <div class="language-toggle">
+                <button class="lang-btn active" id="langPT" data-lang="pt">🇵🇹 PT</button>
+                <button class="lang-btn" id="langEN" data-lang="en">🇬🇧 EN</button>
+            </div>
+
+            <header>
+                <h1 id="headerTitle">🌡️ Conversor de Temperatura</h1>
+                <p class="subtitle" id="headerSubtitle">Converta entre Celsius, Fahrenheit e Kelvin</p>
+            </header>
+
+            <main>
+                <div class="converter">
+                    <div class="input-group">
+                        <label for="celsius" id="labelCelsius">Celsius (°C)</label>
+                        <input 
+                            type="number" 
+                            id="celsius" 
+                            placeholder="0.00"
+                            step="0.01"
+                        >
+                    </div>
+
+                    <div class="swap-button-container">
+                        <button class="swap-button" id="swapBtn" title="Rotate conversions" aria-label="Rotate conversions">
+                            ⟲
+                        </button>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="fahrenheit" id="labelFahrenheit">Fahrenheit (°F)</label>
+                        <input 
+                            type="number" 
+                            id="fahrenheit" 
+                            placeholder="32.00"
+                            step="0.01"
+                        >
+                    </div>
+
+                    <div class="swap-button-container">
+                        <button class="swap-button" id="swapBtn2" title="Rotate conversions" aria-label="Rotate conversions">
+                            ⟲
+                        </button>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="kelvin" id="labelKelvin">Kelvin (K)</label>
+                        <input 
+                            type="number" 
+                            id="kelvin" 
+                            placeholder="273.15"
+                            step="0.01"
+                        >
+                    </div>
+                </div>
+
+                <div class="indicator">
+                    <p id="temperatureIndicator" class="indicator-text">
+                        👉 Digite uma temperatura para ver a indicação
+                    </p>
+                </div>
+
+                <div class="info-box">
+                    <h3 id="infoTitle">📊 Referências Comuns:</h3>
+                    <ul id="infoList">
+                        <li><span class="temp-ref">0°C</span><span id="ref1"> = Ponto de congelamento da água</span></li>
+                        <li><span class="temp-ref">100°C</span><span id="ref2"> = Ponto de ebulição da água</span></li>
+                        <li><span class="temp-ref">37°C</span><span id="ref3"> = Temperatura corporal humana</span></li>
+                        <li><span class="temp-ref">-40°C</span><span id="ref4"> = -40°F (mesma temperatura)</span></li>
+                    </ul>
+                </div>
+            </main>
+
+            <!-- Footer -->
+            <footer class="app-footer">
+                <p id="footerCreator">Developed by David Arsénio Martins</p>
+                <div class="footer-links">
+                    <a href="https://ividi.dev/" target="_blank" rel="noopener" id="footerSite">🌐 ividi.dev</a>
+                    <span class="separator">·</span>
+                    <a href="https://github.com/VidiPT89/" target="_blank" rel="noopener" id="footerGithub">💻 GitHub</a>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

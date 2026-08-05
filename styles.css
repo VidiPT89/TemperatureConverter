@@ -1,0 +1,718 @@
+:root {
+    /* Amber & Dark Navy Theme - matching ividi.dev */
+    --primary-amber: #f59e0b;
+    --primary-amber-dark: #d97706;
+    --primary-amber-light: #fbbf24;
+    --dark-navy: #0f172a;
+    --dark-navy-light: #1e293b;
+    --dark-navy-lighter: #334155;
+    
+    /* Accent colors */
+    --accent-blue: #0ea5e9;
+    --accent-cyan: #06b6d4;
+    
+    /* Backgrounds */
+    --bg-dark: #0a0e27;
+    --bg-card: rgba(15, 23, 42, 0.6);
+    --bg-card-hover: rgba(15, 23, 42, 0.8);
+    
+    /* Text colors */
+    --text-primary: #f8fafc;
+    --text-secondary: #cbd5e1;
+    --text-muted: #94a3b8;
+    
+    /* Borders */
+    --border-color: rgba(255, 255, 255, 0.1);
+    --border-color-hover: rgba(245, 158, 11, 0.3);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: radial-gradient(circle at 20% 50%, rgba(245, 158, 11, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(6, 182, 212, 0.1) 0%, transparent 50%),
+                var(--bg-dark);
+    min-height: 100vh;
+    color: var(--text-primary);
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* ========== SPLASH SCREEN ========== */
+.splash-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--bg-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+
+.splash-screen.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.splash-content {
+    text-align: center;
+    animation: splashFadeIn 0.6s ease backwards;
+}
+
+.splash-icon {
+    font-size: 5rem;
+    margin-bottom: 2rem;
+    animation: splashBounce 2s ease-in-out infinite;
+    animation-delay: 0.2s;
+}
+
+.splash-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(135deg, var(--primary-amber), var(--accent-cyan));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: splashSlideIn 0.8s ease backwards 0.1s;
+}
+
+.splash-subtitle {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+    animation: splashSlideIn 0.8s ease backwards 0.2s;
+}
+
+.splash-loader {
+    width: 50px;
+    height: 50px;
+    margin: 2rem auto;
+    border: 3px solid var(--border-color);
+    border-top-color: var(--primary-amber);
+    border-right-color: var(--accent-cyan);
+    border-radius: 50%;
+    animation: splashSpin 1.5s linear infinite;
+}
+
+.splash-footer {
+    position: absolute;
+    bottom: 2rem;
+    left: 0;
+    right: 0;
+    animation: splashSlideIn 0.8s ease backwards 0.4s;
+}
+
+.splash-footer p {
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+}
+
+.splash-links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.splash-links a {
+    color: var(--primary-amber);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.3s ease;
+}
+
+.splash-links a:hover {
+    color: var(--primary-amber-light);
+    text-decoration: underline;
+}
+
+/* ========== ANIMATIONS ========== */
+@keyframes splashFadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes splashSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes splashBounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+@keyframes splashSpin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes glow {
+    0%, 100% {
+        box-shadow: 0 0 20px rgba(245, 158, 11, 0.2),
+                    0 0 40px rgba(245, 158, 11, 0.1);
+    }
+    50% {
+        box-shadow: 0 0 30px rgba(245, 158, 11, 0.3),
+                    0 0 60px rgba(245, 158, 11, 0.15);
+    }
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+/* ========== APP CONTAINER ========== */
+.app-container {
+    display: flex;
+    opacity: 1;
+    transition: opacity 0.8s ease;
+    animation: fadeInUp 0.8s ease 0.3s backwards;
+}
+
+.app-container.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.container {
+    background: var(--bg-card);
+    backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid var(--border-color);
+    border-radius: 24px;
+    box-shadow: 0 8px 32px 0 rgba(15, 23, 42, 0.37),
+                0 0 60px rgba(245, 158, 11, 0.1);
+    width: 100%;
+    max-width: 500px;
+    margin: 1.5rem auto;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--primary-amber), transparent);
+    opacity: 0.5;
+}
+
+/* ========== LANGUAGE TOGGLE ========== */
+.language-toggle {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    display: flex;
+    gap: 0.5rem;
+    z-index: 100;
+    animation: slideDown 0.6s ease backwards;
+}
+
+.lang-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.lang-btn:hover {
+    background: rgba(245, 158, 11, 0.1);
+    border-color: var(--primary-amber);
+    color: var(--primary-amber);
+}
+
+.lang-btn.active {
+    background: var(--primary-amber);
+    border-color: var(--primary-amber);
+    color: var(--dark-navy);
+}
+
+/* ========== HEADER ========== */
+header {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(6, 182, 212, 0.1));
+    padding: 2.5rem 1.5rem 2rem;
+    text-align: center;
+    border-bottom: 1px solid var(--border-color);
+    position: relative;
+}
+
+header::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--primary-amber), transparent);
+}
+
+header h1 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.subtitle {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    font-weight: 300;
+}
+
+/* ========== MAIN CONTENT ========== */
+main {
+    padding: 2rem 1.5rem;
+}
+
+.converter {
+    display: grid;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    animation: fadeInUp 0.6s ease backwards;
+}
+
+.input-group:nth-child(1) { animation-delay: 0.4s; }
+.input-group:nth-child(3) { animation-delay: 0.5s; }
+.input-group:nth-child(5) { animation-delay: 0.6s; }
+
+.input-group label {
+    font-weight: 600;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.input-group input {
+    padding: 0.875rem 1.25rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    font-size: 1.1rem;
+    color: var(--text-primary);
+    font-family: 'Courier New', monospace;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.input-group input:focus {
+    outline: none;
+    background: rgba(245, 158, 11, 0.05);
+    border-color: var(--primary-amber);
+    box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1),
+                inset 0 0 20px rgba(245, 158, 11, 0.05);
+}
+
+.input-group input::placeholder {
+    color: var(--text-muted);
+}
+
+/* ========== SWAP BUTTON ========== */
+.swap-button-container {
+    display: flex;
+    justify-content: center;
+    margin: -0.5rem 0;
+}
+
+.swap-button {
+    background: linear-gradient(135deg, var(--primary-amber), var(--primary-amber-dark));
+    border: none;
+    color: var(--dark-navy);
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 700;
+    box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+}
+
+.swap-button:hover {
+    transform: scale(1.1) rotate(180deg);
+    box-shadow: 0 6px 25px rgba(245, 158, 11, 0.5);
+}
+
+.swap-button:active {
+    transform: scale(0.95) rotate(180deg);
+}
+
+/* ========== INDICATOR ========== */
+.indicator {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.08), rgba(6, 182, 212, 0.08));
+    padding: 1.5rem;
+    border-radius: 16px;
+    border: 1px solid var(--border-color);
+    margin-bottom: 2rem;
+    text-align: center;
+    min-height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+}
+
+.indicator::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--primary-amber), transparent);
+    opacity: 0.5;
+}
+
+.indicator-text {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 1;
+}
+
+/* Temperature indicator colors */
+.indicator-text.very-cold {
+    color: #0ea5e9;
+}
+
+.indicator-text.cold {
+    color: #38bdf8;
+}
+
+.indicator-text.moderate {
+    color: #10b981;
+}
+
+.indicator-text.warm {
+    color: #f97316;
+}
+
+.indicator-text.very-hot {
+    color: #ef4444;
+    font-weight: 700;
+}
+
+.indicator-text.updated {
+    animation: pulse 0.4s ease;
+}
+
+/* ========== INFO BOX ========== */
+.info-box {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.05), rgba(6, 182, 212, 0.05));
+    padding: 1.5rem;
+    border-radius: 16px;
+    border: 1px solid var(--border-color);
+    backdrop-filter: blur(10px);
+    animation: fadeInUp 0.6s ease backwards 0.7s;
+}
+
+.info-box h3 {
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.info-box ul {
+    list-style: none;
+}
+
+.info-box li {
+    color: var(--text-secondary);
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--border-color);
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.info-box li:last-child {
+    border-bottom: none;
+}
+
+.temp-ref {
+    color: var(--primary-amber);
+    font-weight: 700;
+    min-width: 50px;
+}
+
+/* ========== FOOTER ========== */
+.app-footer {
+    padding: 1.5rem;
+    text-align: center;
+    border-top: 1px solid var(--border-color);
+    background: linear-gradient(180deg, transparent, rgba(245, 158, 11, 0.05));
+    margin-top: auto;
+    animation: fadeInUp 0.6s ease backwards 0.8s;
+}
+
+.app-footer p {
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.footer-links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.footer-links a {
+    color: var(--primary-amber);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: var(--primary-amber-light);
+    text-decoration: underline;
+}
+
+.separator {
+    color: var(--text-muted);
+    opacity: 0.5;
+}
+
+/* ========== RESPONSIVE DESIGN ========== */
+@media (max-width: 600px) {
+    body {
+        padding: 0;
+    }
+
+    .container {
+        border-radius: 20px;
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        max-width: 100%;
+    }
+
+    header h1 {
+        font-size: 1.5rem;
+    }
+
+    .subtitle {
+        font-size: 0.85rem;
+    }
+
+    .language-toggle {
+        top: 0.75rem;
+        right: 0.75rem;
+    }
+
+    .lang-btn {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.75rem;
+    }
+
+    main {
+        padding: 1.5rem 1rem;
+        flex: 1;
+        overflow-y: auto;
+    }
+
+    .converter {
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .input-group input {
+        padding: 0.75rem 1rem;
+        font-size: 1rem;
+    }
+
+    .indicator-text {
+        font-size: 1rem;
+    }
+
+    .info-box {
+        padding: 1rem;
+    }
+
+    .info-box h3 {
+        font-size: 0.9rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .info-box li {
+        padding: 0.5rem 0;
+        font-size: 0.85rem;
+    }
+
+    .app-footer {
+        padding: 1rem;
+    }
+
+    .app-footer p {
+        font-size: 0.8rem;
+    }
+
+    .footer-links {
+        font-size: 0.75rem;
+    }
+
+    .splash-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+    }
+
+    .splash-title {
+        font-size: 1.8rem;
+    }
+
+    .splash-subtitle {
+        font-size: 0.95rem;
+        margin-bottom: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        border-radius: 16px;
+    }
+
+    header {
+        padding: 1.5rem 1rem 1rem;
+    }
+
+    header h1 {
+        font-size: 1.3rem;
+    }
+
+    .subtitle {
+        font-size: 0.8rem;
+    }
+
+    .converter {
+        gap: 0.75rem;
+    }
+
+    .input-group input {
+        padding: 0.65rem 0.9rem;
+        font-size: 0.95rem;
+    }
+
+    .swap-button {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
+
+    .indicator {
+        padding: 1rem;
+        min-height: 60px;
+    }
+
+    .info-box {
+        padding: 0.85rem;
+    }
+
+    main {
+        padding: 1rem;
+    }
+}
+
+/* ========== SCROLLBAR ========== */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-dark);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary-amber);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-amber-light);
+}
