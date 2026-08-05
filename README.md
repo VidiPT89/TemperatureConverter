@@ -4,6 +4,8 @@ A modern, elegant temperature converter with a polished glassmorphism interface,
 
 Temperature Converter is a lightweight web app that converts temperatures between Celsius, Fahrenheit and Kelvin with ease. It combines a premium animated interface, real-time conversions, temperature indicators, and a smooth, professional experience, all built with vanilla HTML, CSS and JavaScript.
 
+[**▶️ Live Demo →**](https://VidiPT89.github.io/TemperatureConverter/)
+
 ## ✨ Main Features
 
 • 🔄 Bidirectional conversions — Celsius ↔ Fahrenheit ↔ Kelvin in real-time
