@@ -334,7 +334,7 @@ body {
 /* ========== HEADER ========== */
 header {
     background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(6, 182, 212, 0.1));
-    padding: 2.5rem 1.5rem 2rem;
+    padding: 5.5rem 1.5rem 2rem;
     text-align: center;
     border-bottom: 1px solid var(--border-color);
     position: relative;
@@ -635,6 +635,10 @@ main {
     .mode-btn {
         padding: 0.4rem 0.8rem;
         font-size: 0.75rem;
+    }
+
+    header {
+        padding: 4rem 1rem 2rem;
     }
 
     main {
