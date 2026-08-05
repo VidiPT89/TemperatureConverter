@@ -23,7 +23,15 @@ const i18n = {
             cold: '❄️ Frio! Temperatura baixa',
             moderate: '😊 Moderado! Temperatura confortável',
             warm: '🔥 Quente! Temperatura elevada',
-            veryHot: '🌡️ MUITO QUENTE! Extremamente perigoso!'
+            veryHot: '🌡️ MUITO QUENTE! Muito elevada'
+        },
+        corpuIndicators: {
+            hypothermia: '🥶 Hipotermia! Perigo!',
+            low: '❄️ Temperatura baixa',
+            normal: '✅ Normal! Saudável',
+            feverMild: '🤒 Febre leve',
+            feverModerate: '🌡️ Febre moderada',
+            feverHigh: '🚨 Febre alta! Procure ajuda médica!'
         }
     },
     en: {
@@ -49,12 +57,21 @@ const i18n = {
             cold: '❄️ Cold! Low temperature',
             moderate: '😊 Moderate! Comfortable temperature',
             warm: '🔥 Warm! Elevated temperature',
-            veryHot: '🌡️ VERY HOT! Extremely dangerous!'
+            veryHot: '🌡️ VERY HOT! Very elevated'
+        },
+        corpuIndicators: {
+            hypothermia: '🥶 Hypothermia! Danger!',
+            low: '❄️ Low temperature',
+            normal: '✅ Normal! Healthy',
+            feverMild: '🤒 Mild fever',
+            feverModerate: '🌡️ Moderate fever',
+            feverHigh: '🚨 High fever! Seek medical help!'
         }
     }
 };
 
 let currentLanguage = localStorage.getItem('tempConverterLanguage') || 'pt';
+let currentMode = localStorage.getItem('tempConverterMode') || 'ambiente';
 
 // DOM Elements
 const splashScreen = document.getElementById('splashScreen');
@@ -67,6 +84,8 @@ const langPTBtn = document.getElementById('langPT');
 const langENBtn = document.getElementById('langEN');
 const swapBtn = document.getElementById('swapBtn');
 const swapBtn2 = document.getElementById('swapBtn2');
+const modeAmbienteBtn = document.getElementById('modeAmbiente');
+const modeCorpoBtn = document.getElementById('modeCorpo');
 
 // Conversion functions
 function celsiusToFahrenheit(celsius) {
@@ -129,26 +148,51 @@ function updateLanguage(lang) {
 function updateIndicator(celsius) {
     let indicator = '';
     let className = '';
-    const temps = i18n[currentLanguage].tempIndicators;
-
-    if (celsius < -40) {
-        indicator = temps.extremeCold;
-        className = 'very-cold';
-    } else if (celsius < 0) {
-        indicator = temps.veryCold;
-        className = 'very-cold';
-    } else if (celsius < 15) {
-        indicator = temps.cold;
-        className = 'cold';
-    } else if (celsius < 25) {
-        indicator = temps.moderate;
-        className = 'moderate';
-    } else if (celsius < 35) {
-        indicator = temps.warm;
-        className = 'warm';
+    
+    if (currentMode === 'corpo') {
+        // Body temperature indicators
+        const temps = i18n[currentLanguage].corpuIndicators;
+        if (celsius < 35) {
+            indicator = temps.hypothermia;
+            className = 'very-cold';
+        } else if (celsius < 36.5) {
+            indicator = temps.low;
+            className = 'cold';
+        } else if (celsius < 37.5) {
+            indicator = temps.normal;
+            className = 'moderate';
+        } else if (celsius < 38.5) {
+            indicator = temps.feverMild;
+            className = 'warm';
+        } else if (celsius < 39.5) {
+            indicator = temps.feverModerate;
+            className = 'warm';
+        } else {
+            indicator = temps.feverHigh;
+            className = 'very-hot';
+        }
     } else {
-        indicator = temps.veryHot;
-        className = 'very-hot';
+        // Ambient temperature indicators
+        const temps = i18n[currentLanguage].tempIndicators;
+        if (celsius < -40) {
+            indicator = temps.extremeCold;
+            className = 'very-cold';
+        } else if (celsius < 0) {
+            indicator = temps.veryCold;
+            className = 'very-cold';
+        } else if (celsius < 15) {
+            indicator = temps.cold;
+            className = 'cold';
+        } else if (celsius < 25) {
+            indicator = temps.moderate;
+            className = 'moderate';
+        } else if (celsius < 35) {
+            indicator = temps.warm;
+            className = 'warm';
+        } else {
+            indicator = temps.veryHot;
+            className = 'very-hot';
+        }
     }
 
     indicatorText.textContent = indicator;
@@ -270,6 +314,31 @@ langENBtn.addEventListener('click', () => {
     updateLanguage('en');
 });
 
+// Mode toggle buttons
+modeAmbienteBtn.addEventListener('click', () => {
+    currentMode = 'ambiente';
+    localStorage.setItem('tempConverterMode', 'ambiente');
+    modeAmbienteBtn.classList.add('active');
+    modeCorpoBtn.classList.remove('active');
+    
+    // Recalculate indicator if there's a temperature
+    if (celsiusInput.value && !isNaN(parseFloat(celsiusInput.value))) {
+        updateIndicator(parseFloat(celsiusInput.value));
+    }
+});
+
+modeCorpoBtn.addEventListener('click', () => {
+    currentMode = 'corpo';
+    localStorage.setItem('tempConverterMode', 'corpo');
+    modeCorpoBtn.classList.add('active');
+    modeAmbienteBtn.classList.remove('active');
+    
+    // Recalculate indicator if there's a temperature
+    if (celsiusInput.value && !isNaN(parseFloat(celsiusInput.value))) {
+        updateIndicator(parseFloat(celsiusInput.value));
+    }
+});
+
 // Clear all on Escape key
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
@@ -285,6 +354,15 @@ document.addEventListener('keydown', (e) => {
 function initApp() {
     // Update language on load
     updateLanguage(currentLanguage);
+    
+    // Initialize mode buttons
+    if (currentMode === 'corpo') {
+        modeCorpoBtn.classList.add('active');
+        modeAmbienteBtn.classList.remove('active');
+    } else {
+        modeAmbienteBtn.classList.add('active');
+        modeCorpoBtn.classList.remove('active');
+    }
 
     // Hide splash screen after 2.5 seconds
     setTimeout(() => {
